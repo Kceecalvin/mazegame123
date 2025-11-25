@@ -56,7 +56,6 @@ jobs:
       with:
         name: maze-escape-apk
         path: bin/*.apk
-        if-no-files-found: error
     
     - name: Get APK info
       run: |
