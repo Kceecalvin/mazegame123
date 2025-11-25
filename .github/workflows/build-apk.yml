@@ -38,8 +38,8 @@ jobs:
           zlib1g-dev \
           libncurses5-dev \
           libncursesw5-dev \
-          libtinfo5 \
-          cmake
+          cmake \
+          ccache
     
     - name: Install Python dependencies
       run: |
