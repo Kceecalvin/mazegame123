@@ -1,0 +1,5 @@
+title Maze Project
+package org.kcalv.mazeproject
+version 1.0
+orientation landscape
+Maze.png
