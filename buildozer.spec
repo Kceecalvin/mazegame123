@@ -28,7 +28,13 @@ orientation = portrait
 fullscreen = 0
 
 # (list) Permissions
-android.permissions = INTERNET,VIBRATE
+android.permissions = INTERNET,VIBRATE,WAKE_LOCK
+
+# (bool) Android wakelock to prevent screen from sleeping
+android.wakelock = True
+
+# (str) Presplash background color (for splash screen)
+android.presplash_color = #4169E1
 
 # (int) Target Android API, should be as high as possible.
 android.api = 33

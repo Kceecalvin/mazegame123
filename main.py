@@ -151,6 +151,42 @@ class MazeWidget(GridLayout):
         self.rows = 1
         self.bind(size=self._update_canvas)
         
+        # Enable swipe gestures for movement
+        self.touch_start_pos = None
+        
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            self.touch_start_pos = touch.pos
+            return True
+        return super().on_touch_down(touch)
+    
+    def on_touch_up(self, touch):
+        if self.collide_point(*touch.pos) and self.touch_start_pos:
+            # Calculate swipe direction
+            dx = touch.pos[0] - self.touch_start_pos[0]
+            dy = touch.pos[1] - self.touch_start_pos[1]
+            
+            # Minimum swipe distance (in dp)
+            min_swipe = dp(30)
+            
+            if abs(dx) > min_swipe or abs(dy) > min_swipe:
+                if abs(dx) > abs(dy):
+                    # Horizontal swipe
+                    if dx > 0:
+                        self.game.move_player('right')
+                    else:
+                        self.game.move_player('left')
+                else:
+                    # Vertical swipe
+                    if dy > 0:
+                        self.game.move_player('up')
+                    else:
+                        self.game.move_player('down')
+            
+            self.touch_start_pos = None
+            return True
+        return super().on_touch_up(touch)
+        
     def _update_canvas(self, *args):
         self.canvas.clear()
         with self.canvas:
@@ -357,10 +393,15 @@ class MazeApp(App):
         self.game = MobileMazeGame()
         self.maze_widget = None
         self.update_event = None
+        self._keyboard = None
         
     def build(self):
-        # Set window size for mobile testing
-        Window.size = (400, 700)
+        # Set window size for mobile testing (comment out for actual device)
+        # Window.size = (400, 700)
+        
+        # Enable multitouch for better mobile experience
+        from kivy.config import Config
+        Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
         
         # Create main layout
         main_layout = BoxLayout(orientation='vertical', spacing=dp(10), padding=dp(10))
@@ -381,28 +422,54 @@ class MazeApp(App):
         # Controls area
         controls_layout = BoxLayout(orientation='vertical', spacing=dp(5), size_hint=(1, 0.2))
         
-        # Movement buttons
+        # Movement buttons - larger for mobile
         move_layout = GridLayout(cols=3, rows=3, spacing=dp(5), size_hint=(1, 0.6))
         
         # Empty spaces for grid alignment
         move_layout.add_widget(Label(text=''))
-        up_btn = Button(text='↑', font_size=sp(20))
+        up_btn = Button(
+            text='↑', 
+            font_size=sp(32),
+            background_color=(0.25, 0.41, 0.88, 1),
+            size_hint_min_y=dp(60)
+        )
         up_btn.bind(on_press=lambda x: self.move('up'))
         move_layout.add_widget(up_btn)
         move_layout.add_widget(Label(text=''))
         
-        left_btn = Button(text='←', font_size=sp(20))
+        left_btn = Button(
+            text='←', 
+            font_size=sp(32),
+            background_color=(0.25, 0.41, 0.88, 1),
+            size_hint_min_x=dp(60)
+        )
         left_btn.bind(on_press=lambda x: self.move('left'))
         move_layout.add_widget(left_btn)
         
-        move_layout.add_widget(Label(text=''))  # Center space
+        # Center info label
+        info_label = Label(
+            text='Swipe or\nUse Buttons',
+            font_size=sp(10),
+            halign='center'
+        )
+        move_layout.add_widget(info_label)
         
-        right_btn = Button(text='→', font_size=sp(20))
+        right_btn = Button(
+            text='→', 
+            font_size=sp(32),
+            background_color=(0.25, 0.41, 0.88, 1),
+            size_hint_min_x=dp(60)
+        )
         right_btn.bind(on_press=lambda x: self.move('right'))
         move_layout.add_widget(right_btn)
         
         move_layout.add_widget(Label(text=''))
-        down_btn = Button(text='↓', font_size=sp(20))
+        down_btn = Button(
+            text='↓', 
+            font_size=sp(32),
+            background_color=(0.25, 0.41, 0.88, 1),
+            size_hint_min_y=dp(60)
+        )
         down_btn.bind(on_press=lambda x: self.move('down'))
         move_layout.add_widget(down_btn)
         move_layout.add_widget(Label(text=''))
@@ -430,10 +497,37 @@ class MazeApp(App):
         # Start update loop
         self.update_event = Clock.schedule_interval(self.update, 1.0/60.0)
         
+        # Setup keyboard for desktop testing
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, main_layout)
+        if self._keyboard:
+            self._keyboard.bind(on_key_down=self._on_keyboard_down)
+        
         # Show level selection
         self.show_level_selection()
         
         return main_layout
+    
+    def _keyboard_closed(self):
+        if self._keyboard:
+            self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+            self._keyboard = None
+    
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        # Arrow keys or WASD for movement
+        key = keycode[1]
+        if key in ['up', 'w']:
+            self.move('up')
+        elif key in ['down', 's']:
+            self.move('down')
+        elif key in ['left', 'a']:
+            self.move('left')
+        elif key in ['right', 'd']:
+            self.move('right')
+        elif key == 'h':
+            self.game.show_hint = not self.game.show_hint
+        elif key == 'r':
+            self.game.start_level(self.game.current_level)
+        return True
     
     def move(self, direction):
         if self.game.game_state == "playing":
