@@ -1,0 +1,83 @@
+name: Build Android APK (Alternative Method)
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    
+    - name: Setup Android SDK with pre-accepted licenses
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: 31
+        build-tools: 31.0.0
+        ndk: 25b
+        cmdline-tools-version: 8512546
+    
+    - name: Accept all Android licenses
+      run: |
+        yes | sdkmanager --licenses || true
+        sdkmanager --list_installed
+    
+    - name: Install system dependencies
+      run: |
+        echo "Installing dependencies for Ubuntu..."
+        sudo apt-get update
+        sudo apt-get install -y \
+          build-essential \
+          libssl-dev \
+          libffi-dev \
+          libpython3-dev \
+          python3-setuptools \
+          zip \
+          unzip \
+          autoconf \
+          libtool \
+          pkg-config \
+          zlib1g-dev \
+          libncurses5-dev \
+          libncursesw5-dev \
+          cmake \
+          ccache
+    
+    - name: Install Python dependencies
+      run: |
+        pip install --upgrade pip
+        pip install --upgrade cython==0.29.33
+        pip install --upgrade buildozer
+    
+    - name: Build APK with Buildozer
+      env:
+        ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+        ANDROID_HOME: /usr/local/lib/android/sdk
+        ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/25b
+        GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m"
+      run: |
+        # Link SDK to buildozer's expected location
+        mkdir -p $HOME/.buildozer/android/platform
+        ln -sf /usr/local/lib/android/sdk $HOME/.buildozer/android/platform/android-sdk
+        ln -sf /usr/local/lib/android/sdk/ndk/25b $HOME/.buildozer/android/platform/android-ndk
+        
+        echo "SDK linked, starting build..."
+        buildozer -v android debug
+    
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: maze-escape-apk
+        path: bin/*.apk
+    
+    - name: Get APK info
+      run: |
+        echo "APK built successfully!"
+        ls -lh bin/*.apk
