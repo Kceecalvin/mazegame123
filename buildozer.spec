@@ -42,26 +42,26 @@ android.api = 31
 # (int) Minimum API your APK will support.
 android.minapi = 21
 
-# (int) Android SDK version to use
-android.sdk = 31
-
 # (str) Android NDK version to use
 android.ndk = 25b
-
-# (str) Android build-tools version to use (must match or be compatible with SDK version)
-android.build_tools_version = 31.0.0
 
 # (bool) If True, then automatically accept SDK license agreements. This is intended for automation only.
 android.accept_sdk_license = True
 
 # (str) python-for-android (p4a) fork to use (if empty, will use official)
-# p4a.fork = 
+# p4a.fork = kivy
 
 # (str) python-for-android branch to use (if empty, will use master)
-# p4a.branch = 
+p4a.branch = master
 
-# (str) python-for-android git clone directory (if empty, will use $HOME/.buildozer/android/platform/python-for-android)
-# p4a.source_dir =
+# (str) The bootstrap to use. Leave empty to let buildozer choose.
+p4a.bootstrap = sdl2
+
+# (int) Android API to use with python-for-android
+p4a.android_api = 31
+
+# (int) Minimum API for python-for-android
+p4a.ndk_api = 21
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 android.private_storage = True

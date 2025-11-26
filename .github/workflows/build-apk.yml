@@ -73,13 +73,29 @@ jobs:
         
         echo "Android SDK licenses accepted"
     
+    - name: Create sdkmanager wrapper to auto-accept licenses
+      run: |
+        # Create a wrapper script for sdkmanager that always pipes 'yes'
+        mkdir -p $HOME/.buildozer/bin
+        cat > $HOME/.buildozer/bin/sdkmanager << 'EOF'
+        #!/bin/bash
+        # Wrapper to auto-accept all SDK licenses
+        yes | /home/runner/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "$@"
+        EOF
+        chmod +x $HOME/.buildozer/bin/sdkmanager
+        echo "Created sdkmanager wrapper"
+    
     - name: Build APK with Buildozer
       env:
         ANDROID_SDK_ROOT: ${{ env.HOME }}/.buildozer/android/platform/android-sdk
         ANDROID_HOME: ${{ env.HOME }}/.buildozer/android/platform/android-sdk
+        PATH: ${{ env.HOME }}/.buildozer/bin:${{ env.PATH }}
+        USE_SDK_WRAPPER: 1
+        GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m"
       run: |
         # Use 'yes' to auto-accept any prompts during build
-        yes | buildozer -v android debug || buildozer -v android debug
+        # The sdkmanager wrapper will handle license prompts automatically
+        yes 2>/dev/null | buildozer -v android debug || buildozer -v android debug
     
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
