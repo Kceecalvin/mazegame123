@@ -30,6 +30,13 @@ If your GitHub Actions build fails, here are common issues and solutions:
 **Cause:** Extremely rare, usually network issues  
 **Solution:** Re-run the workflow
 
+### 7. "Accept? (y/N): Skipping following packages as the license is not accepted"
+**Cause:** Android SDK Build-Tools license not accepted automatically  
+**Solution:** Already handled in workflow - automatically accepts licenses before build
+- Workflow creates license files before buildozer runs
+- `buildozer.spec` includes `android.accept_sdk_license = True`
+- If you see this error, ensure you're using the latest workflow file
+
 ## ✅ Successful Build Indicators
 
 When the build succeeds, you'll see:
