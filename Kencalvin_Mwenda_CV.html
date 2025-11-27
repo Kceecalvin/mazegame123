@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kencalvin Mwenda - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px 50px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header .title {
+            font-size: 1.3em;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.9em;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px 50px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #1e3c72;
+            border-bottom: 3px solid #2a5298;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Professional Summary */
+        .summary {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 20px;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .degree {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .date {
+            color: #666;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+
+        .institution {
+            font-size: 1.05em;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .gpa {
+            font-weight: 600;
+            color: #2a5298;
+            margin-bottom: 8px;
+        }
+
+        .education-item ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .education-item li {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        /* Work Experience */
+        .job {
+            margin-bottom: 25px;
+        }
+
+        .job-header {
+            margin-bottom: 10px;
+        }
+
+        .job-title {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .company {
+            font-size: 1.05em;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .job ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .job li {
+            margin-bottom: 8px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #2a5298;
+        }
+
+        .skill-category h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .skill-category p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        /* Projects */
+        .project {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .project-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+
+        .project-type {
+            color: #2a5298;
+            font-style: italic;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .project p {
+            color: #555;
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 12px;
+        }
+
+        .cert-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-left: 3px solid #2a5298;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cert-name {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .cert-issuer {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Achievements */
+        .achievement-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .achievement-list li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-left: 4px solid #2a5298;
+            color: #555;
+        }
+
+        .achievement-list li strong {
+            color: #1e3c72;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .two-column ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .two-column li {
+            padding: 8px 0;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .header {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .job {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kencalvin Mwenda</h1>
+            <div class="title">Software Engineer</div>
+            <div class="contact-info">
+                <span>Email: kcalvinmwenda@gmail.com</span>
+                <span>Phone: +254 748 324 656</span>
+                <span>Location: Nairobi, Kenya</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Professional Summary -->
+            <div class="section">
+                <h2 class="section-title">Professional Summary</h2>
+                <p class="summary">
+                    Highly motivated Software Engineer with a stellar academic record and proven track record in developing scalable applications. Strong expertise in full-stack development, cloud technologies, and agile methodologies. Passionate about creating efficient, user-centric solutions and continuously learning emerging technologies. Demonstrated ability to lead teams, optimize performance, and deliver high-quality software solutions that drive business growth.
+                </p>
+            </div>
+
+            <!-- Education -->
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <div class="education-header">
+                        <div class="degree">Bachelor of Science in Software Engineering</div>
+                        <div class="date">September 2019 - December 2023</div>
+                    </div>
+                    <div class="institution">Kirinyaga University, Kirinyaga, Kenya</div>
+                    <div class="gpa">GPA: 3.95/4.0 (First Class Honours)</div>
+                    <ul>
+                        <li><strong>Relevant Coursework:</strong> Data Structures & Algorithms, Database Systems, Software Architecture, Mobile Application Development, Cloud Computing, Machine Learning</li>
+                        <li><strong>Academic Achievements:</strong> Dean's List (All Semesters), Best Software Engineering Student Award 2023</li>
+                        <li><strong>Final Year Project:</strong> "AI-Powered Agriculture Management System" - Developed a mobile application for precision farming using machine learning and IoT sensors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="section">
+                <h2 class="section-title">Work Experience</h2>
+                
+                <div class="job">
+                    <div class="job-header">
+                        <div class="job-title">Senior Software Developer</div>
+                        <div class="company">TechSolutions Kenya Ltd, Nairobi</div>
+                        <div class="date">January 2023 - Present</div>
+                    </div>
+                    <ul>
+                        <li>Led development of a comprehensive e-commerce platform serving 50,000+ active users, resulting in 40% increase in client revenue</li>
+                        <li>Architected and implemented microservices-based backend using Python (Django) and Node.js, improving system scalability by 60%</li>
+                        <li>Mentored team of 4 junior developers, conducting code reviews and establishing best practices</li>
+                        <li>Implemented CI/CD pipelines using Jenkins and Docker, reducing deployment time by 75%</li>
+                        <li>Collaborated with cross-functional teams to deliver 12+ major features on schedule</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div class="job-title">Software Engineer (Intern → Full-time)</div>
+                        <div class="company">Safaricom PLC, Nairobi</div>
+                        <div class="date">June 2021 - December 2022</div>
+                    </div>
+                    <ul>
+                        <li>Developed and maintained RESTful APIs for M-PESA integration serving millions of transactions daily</li>
+                        <li>Built responsive web applications using React.js and TypeScript, improving user engagement by 35%</li>
+                        <li>Optimized database queries in PostgreSQL, reducing average response time by 50%</li>
+                        <li>Participated in agile sprints and daily stand-ups, consistently meeting sprint goals</li>
+                        <li>Created comprehensive technical documentation for internal APIs and systems</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div class="job-title">Junior Developer</div>
+                        <div class="company">InnovateTech Hub, Nairobi</div>
+                        <div class="date">January 2021 - May 2021</div>
+                    </div>
+                    <ul>
+                        <li>Contributed to development of mobile applications using Flutter and React Native</li>
+                        <li>Implemented user authentication and authorization features using Firebase and JWT</li>
+                        <li>Performed unit testing and integration testing, achieving 85% code coverage</li>
+                        <li>Fixed 30+ bugs and implemented 15+ feature requests</li>
+                        <li>Collaborated with UX/UI designers to implement pixel-perfect interfaces</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming Languages</h3>
+                        <p>Python, Java, JavaScript/TypeScript, C++, Kotlin, Dart, SQL, PHP</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Backend Development</h3>
+                        <p>Django, Flask, Node.js, Express.js, Spring Boot</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Frontend Development</h3>
+                        <p>React.js, Vue.js, Angular, HTML5, CSS3, Bootstrap, Tailwind CSS</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Mobile Development</h3>
+                        <p>Flutter, React Native, Android (Kotlin)</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Databases</h3>
+                        <p>PostgreSQL, MySQL, MongoDB, Redis, Firebase</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>DevOps & Tools</h3>
+                        <p>Docker, Kubernetes, Jenkins, GitHub Actions, Git, AWS, Azure, Linux</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects -->
+            <div class="section">
+                <h2 class="section-title">Notable Projects</h2>
+                
+                <div class="project">
+                    <div class="project-title">E-Learning Platform</div>
+                    <div class="project-type">Personal Project</div>
+                    <p>Developed a full-stack e-learning platform with video streaming, real-time chat, and progress tracking</p>
+                    <p><strong>Technologies:</strong> React.js, Node.js, MongoDB, Socket.io, AWS S3</p>
+                    <p><strong>Features:</strong> User authentication, course management, payment integration (M-PESA), admin dashboard</p>
+                </div>
+
+                <div class="project">
+                    <div class="project-title">Healthcare Management System</div>
+                    <div class="project-type">Freelance Project</div>
+                    <p>Built a comprehensive hospital management system for a private clinic in Nairobi</p>
+                    <p><strong>Technologies:</strong> Django, PostgreSQL, Bootstrap, Chart.js</p>
+                    <p><strong>Impact:</strong> Reduced administrative overhead by 45% and improved patient data accuracy</p>
+                </div>
+
+                <div class="project">
+                    <div class="project-title">Real-time Weather Dashboard</div>
+                    <div class="project-type">Open Source Contribution</div>
+                    <p>Contributed to open-source weather visualization project with 2,000+ GitHub stars</p>
+                    <p><strong>Technologies:</strong> Vue.js, OpenWeatherMap API, PWA</p>
+                    <p><strong>Contribution:</strong> Implemented dark mode feature and improved mobile responsiveness</p>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="section">
+                <h2 class="section-title">Certifications</h2>
+                <div class="cert-grid">
+                    <div class="cert-item">
+                        <div>
+                            <div class="cert-name">AWS Certified Solutions Architect - Associate</div>
+                            <div class="cert-issuer">Amazon Web Services, 2023</div>
+                        </div>
+                    </div>
+                    <div class="cert-item">
+                        <div>
+                            <div class="cert-name">Professional Scrum Master I (PSM I)</div>
+                            <div class="cert-issuer">Scrum.org, 2022</div>
+                        </div>
+                    </div>
+                    <div class="cert-item">
+                        <div>
+                            <div class="cert-name">Google Associate Android Developer</div>
+                            <div class="cert-issuer">Google, 2022</div>
+                        </div>
+                    </div>
+                    <div class="cert-item">
+                        <div>
+                            <div class="cert-name">MongoDB Certified Developer Associate</div>
+                            <div class="cert-issuer">MongoDB University, 2021</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="section">
+                <h2 class="section-title">Achievements & Awards</h2>
+                <ul class="achievement-list">
+                    <li><strong>Hackathon Winner</strong> - Safaricom Innovation Challenge 2022 (Developed fintech solution for SMEs)</li>
+                    <li><strong>Best Software Engineering Student</strong> - Kirinyaga University 2023</li>
+                    <li><strong>Dean's List</strong> - All semesters (2019-2023)</li>
+                    <li><strong>Open Source Contributor</strong> - 50+ contributions to various GitHub projects</li>
+                </ul>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="section">
+                <div class="two-column">
+                    <div>
+                        <h2 class="section-title">Professional Memberships</h2>
+                        <ul>
+                            <li>Institute of Software Engineers of Kenya (ISEK)</li>
+                            <li>Google Developer Groups Nairobi</li>
+                            <li>Nairobi Tech Meetups - Active Participant</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Languages</h2>
+                        <ul>
+                            <li>English (Fluent)</li>
+                            <li>Swahili (Native)</li>
+                            <li>Kikuyu (Native)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; color: #666; font-style: italic;">
+                References available upon request
+            </div>
+        </div>
+    </div>
+</body>
+</html>

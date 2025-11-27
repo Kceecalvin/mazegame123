@@ -1,6 +1,7 @@
 import heapq
 from collections import deque
 import numpy as np
+import random
 
 class MazeSolver:
     def __init__(self, maze):
